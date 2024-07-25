@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import '../css/Registrar.css'
+import Button from 'react-bootstrap/Button';
+
 export const Registrar = () => {
     const url = `https://babytracker.develotion.com/`;
     const [Departamentos,setDepartamentos]=useState([])
@@ -9,6 +11,9 @@ export const Registrar = () => {
     const [Usuario,setUsuario]=useState("")
     const [Contrasena,setContrasena]=useState("")
     const [DepartamentosSelecc,setDepartamentosSelecc]=useState([])
+
+
+
     useEffect(()=>{
         FetchDepartamentos()
     },[]);
@@ -43,6 +48,34 @@ export const Registrar = () => {
         const result = await response.json();
         console.log(result)
         setCiudades(result.ciudades)
+    }
+
+    const CrearUsuario = async ()=>{
+
+        const UsuarioRegistro = {
+            usuario: Usuario,
+            password:Contrasena,
+            idDepartamento: DepartamentosSelecc,
+            idCiudad: CiudadSelecc
+        }
+
+        console.log(UsuarioRegistro)
+
+        const UrlUsuario = "usuarios.php";
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        requestOptions.body = JSON.stringify(Usuario);
+
+        const urlfetch= url+UrlUsuario;
+        console.log(urlfetch)
+        
+        const response = await fetch(urlfetch, requestOptions);
+
+        const result = await response.json();
+        console.log(result)
+        
     }
 
   return (
@@ -90,6 +123,7 @@ export const Registrar = () => {
                     <option key={ciudad.id} value={ciudad.id}>{ciudad.nombre}</option>   
                 )}
             </Form.Select>
+            <Button onClick={()=>CrearUsuario()}>Registrar</Button>
         </div>
     </>
   )
