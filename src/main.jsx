@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Registrar } from './Components/Registrar'
+import { App } from './Components/App'
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Registrar/>
+    <App/>
   </React.StrictMode>,
 )

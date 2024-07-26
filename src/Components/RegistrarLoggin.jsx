@@ -3,14 +3,23 @@ import Form from 'react-bootstrap/Form';
 import '../css/Registrar.css'
 import Button from 'react-bootstrap/Button';
 
-export const Registrar = () => {
+export const RegistrarLoggin = ({callBackRegistro,callBackLoggin}) => {
     const url = `https://babytracker.develotion.com/`;
+    //Login
+    const [UsuarioLogin,setUsuarioLogin]=useState("")
+    const [ContrasenaLogin,setContrasenaLogin]=useState("")
+
+
+    //CrearUsuario
     const [Departamentos,setDepartamentos]=useState([])
     const [Ciudades,setCiudades]=useState([])
     const [CiudadSelecc,setCiudadSelecc]=useState([])
     const [Usuario,setUsuario]=useState("")
     const [Contrasena,setContrasena]=useState("")
     const [DepartamentosSelecc,setDepartamentosSelecc]=useState([])
+
+    //CrearRegistrar
+    const [CrearRegistrar,setCrearRegistrar]=useState(false)
 
 
 
@@ -51,7 +60,6 @@ export const Registrar = () => {
     }
 
     const CrearUsuario = async ()=>{
-
         const UsuarioRegistro = {
             usuario: Usuario,
             password:Contrasena,
@@ -59,28 +67,21 @@ export const Registrar = () => {
             idCiudad: CiudadSelecc
         }
 
-        console.log(UsuarioRegistro)
-
-        const UrlUsuario = "usuarios.php";
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        };
-        requestOptions.body = JSON.stringify(Usuario);
-
-        const urlfetch= url+UrlUsuario;
-        console.log(urlfetch)
-        
-        const response = await fetch(urlfetch, requestOptions);
-
-        const result = await response.json();
-        console.log(result)
-        
+        callBackRegistro(UsuarioRegistro)
     }
 
-  return (
-    <>
+    const LogearUsuario = async ()=>{
 
+        const UsuarioLogg = {
+            usuario: UsuarioLogin,
+            password:ContrasenaLogin,
+        }
+
+        callBackLoggin(UsuarioLogg)
+    }
+
+  return (<>
+{CrearRegistrar ? <>
 <div className="form-container">
     <h1>Registro</h1>
             <Form.Label>Usuario</Form.Label>
@@ -123,8 +124,32 @@ export const Registrar = () => {
                     <option key={ciudad.id} value={ciudad.id}>{ciudad.nombre}</option>   
                 )}
             </Form.Select>
-            <Button onClick={()=>CrearUsuario()}>Registrar</Button>
+            <Button style={{marginBottom:"10px"}}  onClick={()=>CrearUsuario()}>Registrar</Button>
+            <Button onClick={()=>setCrearRegistrar(false)}>Login</Button>
         </div>
-    </>
-  )
+    </>:
+    <div className="form-container">
+    <h1>Login</h1>
+            <Form.Label>Usuario</Form.Label>
+            <Form.Control
+                type="text"
+                className="form-control"
+                value={UsuarioLogin}
+                onChange={(e) => { setUsuarioLogin(e.target.value) }}
+                placeholder="Usuario"
+            />
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+                type="text"
+                className="form-control"
+                value={ContrasenaLogin}
+                onChange={(e) => { setContrasenaLogin(e.target.value) }}
+                placeholder="Contraseña"
+            />
+            <Button style={{marginBottom:"10px"}} onClick={()=>LogearUsuario()}>Loggin</Button>
+            <Button onClick={()=>setCrearRegistrar(true)}>Registrarme</Button>
+        </div>
+}
+</>
+)
 }
