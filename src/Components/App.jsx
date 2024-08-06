@@ -1,8 +1,11 @@
 import React, { useState,useEffect } from 'react'
 import { RegistrarLoggin } from './RegistrarLoggin';
+import { Provider } from 'react-redux';
+import {Store } from './Store.js'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Home } from './Home.jsx';
 
 export const App = () => {
-
     const url = `https://babytracker.develotion.com/`;
 
     const [User, setUser] = useState(() => {
@@ -46,10 +49,12 @@ export const App = () => {
         
 
         const UrlUsuario = "login.php";
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         };
+
         requestOptions.body = JSON.stringify(UsuarioLogg);
 
         const urlfetch= url+UrlUsuario;
@@ -76,9 +81,17 @@ export const App = () => {
     }, [User]);
 
 
+
+
   return (
-    <>
-        <RegistrarLoggin callBackRegistro={CrearUsuario} callBackLoggin={LoginUsuario} />
-    </>
+    <Provider store={Store}>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<RegistrarLoggin UserLs={User} callBackRegistro={CrearUsuario} callBackLoggin={LoginUsuario} />}/>
+                <Route path="/Home" element={<Home/>}/>
+            </Routes>   
+        </BrowserRouter>
+        
+    </Provider>
   )
 }

@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import '../css/Registrar.css'
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
-export const RegistrarLoggin = ({callBackRegistro,callBackLoggin}) => {
+export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
     const url = `https://babytracker.develotion.com/`;
     //Login
     const [UsuarioLogin,setUsuarioLogin]=useState("")
     const [ContrasenaLogin,setContrasenaLogin]=useState("")
 
-
+    const navigate=useNavigate()
+    
     //CrearUsuario
+
     const [Departamentos,setDepartamentos]=useState([])
     const [Ciudades,setCiudades]=useState([])
     const [CiudadSelecc,setCiudadSelecc]=useState([])
     const [Usuario,setUsuario]=useState("")
     const [Contrasena,setContrasena]=useState("")
     const [DepartamentosSelecc,setDepartamentosSelecc]=useState([])
-
     //CrearRegistrar
     const [CrearRegistrar,setCrearRegistrar]=useState(false)
 
@@ -79,6 +81,12 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin}) => {
 
         callBackLoggin(UsuarioLogg)
     }
+    useEffect(() => {
+        if(UserLs){
+            navigate("/Home")
+        }
+    }, []);
+
 
   return (<>
 {CrearRegistrar ? <>
