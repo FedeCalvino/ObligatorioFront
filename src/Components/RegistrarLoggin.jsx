@@ -20,6 +20,8 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
     const [Usuario,setUsuario]=useState("")
     const [Contrasena,setContrasena]=useState("")
     const [DepartamentosSelecc,setDepartamentosSelecc]=useState([])
+
+
     //CrearRegistrar
     const [CrearRegistrar,setCrearRegistrar]=useState(false)
 
@@ -62,6 +64,7 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
     }
 
     const CrearUsuario = async ()=>{
+
         const UsuarioRegistro = {
             usuario: Usuario,
             password:Contrasena,
@@ -86,9 +89,11 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
            navigate("/Home")
         }
     }, []);
+
+
     if(UserLs){
         navigate("/Home")
-     }
+    }
 
   return (<>
 {CrearRegistrar ? <>

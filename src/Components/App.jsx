@@ -13,6 +13,7 @@ export const App = () => {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
+
     console.log("usuario",User)
 
     const DeleteUser = () => {
@@ -22,19 +23,16 @@ export const App = () => {
 
     const CrearUsuario = async (UsuarioCreado)=>{
 
-
-        console.log(UsuarioCreado)
-
         const UrlUsuario = "usuarios.php";
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         };
+
         requestOptions.body = JSON.stringify(UsuarioCreado);
 
         const urlfetch= url+UrlUsuario;
-        console.log(urlfetch)
-        
         const response = await fetch(urlfetch, requestOptions);
 
         const result = await response.json();
@@ -76,16 +74,16 @@ export const App = () => {
                 id:result.id,
                 apiKey:result.apiKey
             })
+        }else{
+            //alerta log mal
         }
-
         console.log(User)
-        
     }
+
 
     useEffect(() => {
         localStorage.setItem('user', JSON.stringify(User));
     }, [User]);
-//;a;a;a;a
 
 
 
@@ -98,7 +96,6 @@ export const App = () => {
                 <Route path="/*" element={<NotFound/>}/>
             </Routes>   
         </BrowserRouter>
-        
     </Provider>
   )
 }
