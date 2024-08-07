@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import { CrearEvento } from './CrearEvento';
+import { useDispatch } from 'react-redux';
+import { addEvent,deleteEvent } from "../Features/eventosSlice";
+import { ListEventos } from './ListEventos';
+
 export const Home = ({LogOut,UserLs}) => {
+
+    const dispatch = useDispatch();
     const navigate = useNavigate()
     const url = `https://babytracker.develotion.com//`;
     const [Categorias,setCategorias] = useState([])
@@ -54,13 +60,18 @@ export const Home = ({LogOut,UserLs}) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok' + response.statusText);
             }
-    
+
+            dispatch(addEvent(Evento));
+
             const result = await response.json();
             console.log("Evento",result);
         } catch (error) {
             console.error('FetchCategorias error:', error);
         }
     }
+    const EliminarEvento = (index) => {
+        dispatch(deleteEvent(index));
+    };
 
 
     const handleDateTimeChange = (event) => {
@@ -80,6 +91,7 @@ export const Home = ({LogOut,UserLs}) => {
     <>
         <button onClick={()=>LogOut()}>log out</button>
         <CrearEvento Categorias={Categorias} callBackCrearEvent={crearEvento} Usu={UserLs}/>
+        <ListEventos callBackDeleteEv={EliminarEvento}/>
     </>
   )
 }

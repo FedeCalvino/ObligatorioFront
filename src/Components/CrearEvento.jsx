@@ -14,8 +14,6 @@ export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
     };
 
     const AddEvent = () => {
-
-
         const now = new Date();
         const selectedDateTime = new Date(dateTime);
 
@@ -25,7 +23,7 @@ export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
         }
         console.log("dateTime",dateTime)
         if(!dateTime){
-            setDateTime(new Date());
+            setDateTime("");
         }
         console.log(Usu)
         const Evento = {
@@ -38,6 +36,7 @@ export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
         console.log(Evento);
         callBackCrearEvent(Evento);
     };
+    
 
     return (
         <>
