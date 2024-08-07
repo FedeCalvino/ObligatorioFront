@@ -4,15 +4,21 @@ import { Provider } from 'react-redux';
 import {Store } from './Store.js'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './Home.jsx';
+import { NotFound } from './NotFound.jsx';
 
 export const App = () => {
-    const url = `https://babytracker.develotion.com/`;
+    const url = `https://babytracker.develotion.com//`;
 
     const [User, setUser] = useState(() => {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
-//;a;a;a;a
+    console.log("usuario",User)
+
+    const DeleteUser = () => {
+        localStorage.removeItem('user');
+        setUser(null); // Opcional: actualiza el estado local si es necesario
+    };
 
     const CrearUsuario = async (UsuarioCreado)=>{
 
@@ -88,7 +94,8 @@ export const App = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<RegistrarLoggin UserLs={User} callBackRegistro={CrearUsuario} callBackLoggin={LoginUsuario} />}/>
-                <Route path="/Home" element={<Home/>}/>
+                <Route path="/Home" element={<Home LogOut={DeleteUser}  UserLs={User}/>}/>
+                <Route path="/*" element={<NotFound/>}/>
             </Routes>   
         </BrowserRouter>
         

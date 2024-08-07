@@ -11,7 +11,7 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
     const [ContrasenaLogin,setContrasenaLogin]=useState("")
 
     const navigate=useNavigate()
-    
+
     //CrearUsuario
 
     const [Departamentos,setDepartamentos]=useState([])
@@ -83,10 +83,12 @@ export const RegistrarLoggin = ({callBackRegistro,callBackLoggin,UserLs}) => {
     }
     useEffect(() => {
         if(UserLs){
-            navigate("/Home")
+           navigate("/Home")
         }
     }, []);
-
+    if(UserLs){
+        navigate("/Home")
+     }
 
   return (<>
 {CrearRegistrar ? <>
