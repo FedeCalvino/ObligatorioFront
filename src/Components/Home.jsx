@@ -5,15 +5,13 @@ import { useDispatch } from 'react-redux';
 import { addEvent } from "../Features/eventosSlice";
 import { ListEventos } from './ListEventos';
 import {setCategorias} from "../Features/categoriaSlice";
+import {Charts} from './Charts';
 
 export const Home = () => {
     
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const url = `https://babytracker.develotion.com//`;
-    const [CategoriaSelecc,setCategoriaSelecc] = useState([])
-    const [dateTime, setDateTime] = useState('');
-    const [DetalleEevento, setDetalleEevento] = useState('');
     
 
     const [User, setUser] = useState(() => {
@@ -65,7 +63,6 @@ export const Home = () => {
     } 
 
     const FetchEventosUser = async () => {
-
         const urlEvent = `https://babytracker.develotion.com//eventos.php?idUsuario=${User.id}`; // Corrected URL syntax
         console.log(urlEvent)
         const requestOptions = {
@@ -102,16 +99,12 @@ export const Home = () => {
     }, [User]);
 
 
-
-    /*
-          <CrearEvento/>
-        <ListEventos/>
-    */
   return (
     <>
         <button onClick={()=>DeleteUser()}>log out</button>
         <CrearEvento/>
         <ListEventos/>
+        <Charts/>
     </>
   )
 }
