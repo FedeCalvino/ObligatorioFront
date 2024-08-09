@@ -21,78 +21,14 @@ export const App = () => {
         setUser(null); // Opcional: actualiza el estado local si es necesario
     };
 
-    const CrearUsuario = async (UsuarioCreado)=>{
-
-        const UrlUsuario = "usuarios.php";
-
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        };
-
-        requestOptions.body = JSON.stringify(UsuarioCreado);
-
-        const urlfetch= url+UrlUsuario;
-        const response = await fetch(urlfetch, requestOptions);
-
-        const result = await response.json();
-
-        if(result.codigo==200){
-            setUser({
-                id:result.id,
-                apiKey:result.apiKey
-            })
-        }
-        console.log(User)
-        
-    }
-
-    const LoginUsuario = async (UsuarioLogg)=>{
-
-        console.log(UsuarioLogg)
-        
-
-        const UrlUsuario = "login.php";
-
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        };
-
-        requestOptions.body = JSON.stringify(UsuarioLogg);
-
-        const urlfetch= url+UrlUsuario;
-
-        console.log(urlfetch)
-        
-        const response = await fetch(urlfetch, requestOptions);
-
-        const result = await response.json();
-
-       if(result.codigo==200){
-            setUser({
-                id:result.id,
-                apiKey:result.apiKey
-            })
-        }else{
-            //alerta log mal
-        }
-        console.log(User)
-    }
-
-
-    useEffect(() => {
-        localStorage.setItem('user', JSON.stringify(User));
-    }, [User]);
-
 
 
   return (
     <Provider store={Store}>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<RegistrarLoggin UserLs={User} callBackRegistro={CrearUsuario} callBackLoggin={LoginUsuario} />}/>
-                <Route path="/Home" element={<Home LogOut={DeleteUser}  UserLs={User}/>}/>
+                <Route path="/" element={<RegistrarLoggin />}/>
+                <Route path="/Home" element={<Home/>}/>
                 <Route path="/*" element={<NotFound/>}/>
             </Routes>   
         </BrowserRouter>

@@ -9,6 +9,10 @@ export const eventosSlice = createSlice({
     name: "eventos",
     initialState,
     reducers: {
+        setEvent: (state, action) => {
+            state.eventos = action.payload;
+            console.log("eventos cargados");
+        },
         addEvent: (state, action) => {
             state.eventos.push(action.payload);
             console.log("Nuevo evento agregado:", action.payload);
@@ -20,5 +24,6 @@ export const eventosSlice = createSlice({
     }
 });
 
-export const { addEvent,deleteEvent } = eventosSlice.actions;
+export const { addEvent,deleteEvent, setEvent} = eventosSlice.actions;
+
 export default eventosSlice.reducer;

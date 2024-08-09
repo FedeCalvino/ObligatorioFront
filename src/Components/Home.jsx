@@ -1,97 +1,117 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
 import { CrearEvento } from './CrearEvento';
 import { useDispatch } from 'react-redux';
-import { addEvent,deleteEvent } from "../Features/eventosSlice";
+import { addEvent } from "../Features/eventosSlice";
 import { ListEventos } from './ListEventos';
+import {setCategorias} from "../Features/categoriaSlice";
 
-export const Home = ({LogOut,UserLs}) => {
-
+export const Home = () => {
+    
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const url = `https://babytracker.develotion.com//`;
-    const [Categorias,setCategorias] = useState([])
     const [CategoriaSelecc,setCategoriaSelecc] = useState([])
     const [dateTime, setDateTime] = useState('');
     const [DetalleEevento, setDetalleEevento] = useState('');
     
-    console.log(UserLs)
+
+    const [User, setUser] = useState(() => {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
+
     const FetchCategorias = async () => {
-        console.log(UserLs.apiKey)
         const urlCat = "categorias.php";
         const requestOptions = {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'apikey': UserLs.apiKey, // Añade tu apikey
-                'iduser': UserLs.id, // Añade el iduser
+                'apikey': User.apiKey, // Añade tu apikey
+                'iduser': User.id, // Añade el iduser
             }
         };
-    
-        try {
-            const response = await fetch(url + urlCat, requestOptions);
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-    
-            const result = await response.json();
-            console.log(result.categorias);
-            setCategorias(result.categorias);
-        } catch (error) {
-            console.error('FetchCategorias error:', error);
+    fetch(url+urlCat,requestOptions)
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
         }
+        return response.json();
+         }) .then(result => {
+        console.log(result.categorias);
+        dispatch(setCategorias(result.categorias));
+        })
+        .catch(error => {
+        console.error('FetchCategorias error:', error);
+        }); 
     };
-    const crearEvento = async (Evento)=>{
-        const urlEvent = "eventos.php"
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'apikey': UserLs.apiKey, // Añade tu apikey
-                'iduser': UserLs.id, // Añade el iduser
-            }
-        };
-        requestOptions.body = JSON.stringify(Evento);
-        try {
-            const response = await fetch(url + urlEvent, requestOptions);
     
-            if (!response.ok) {
-                throw new Error('Network response was not ok' + response.statusText);
-            }
-
-            dispatch(addEvent(Evento));
-
-            const result = await response.json();
-            console.log("Evento",result);
-        } catch (error) {
-            console.error('FetchCategorias error:', error);
-        }
-    }
-    const EliminarEvento = (index) => {
-        dispatch(deleteEvent(index));
+    const DeleteUser = () => {
+        localStorage.removeItem('user');
+        setUser(null); // Opcional: actualiza el estado local si es necesario
     };
 
-
-    const handleDateTimeChange = (event) => {
-        setDateTime(event.target.value);
-    };
 
     useEffect(()=>{
         FetchCategorias()
-        if(!UserLs){
+        if(!User){
             navigate("/")
         } 
     },[])
-    if(!UserLs){
+
+    
+    if(!User){
         navigate("/")
     } 
+
+    const FetchEventosUser = async () => {
+
+        const urlEvent = `https://babytracker.develotion.com//eventos.php?idUsuario=${User.id}`; // Corrected URL syntax
+        console.log(urlEvent)
+        const requestOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': User.apiKey,
+                'iduser': User.id,
+            }
+        };
+
+        try {
+            const response = await fetch(urlEvent, requestOptions);
+
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log("Eventos fetch result:", result);
+
+            result.eventos.forEach(event => dispatch(addEvent(event)));
+
+        } catch (error) {
+            console.error('FetchEventosUser error:', error);
+        }
+    };
+ 
+
+    useEffect(() => {
+        if (User) {
+            FetchEventosUser();
+        }
+    }, [User]);
+
+
+
+    /*
+          <CrearEvento/>
+        <ListEventos/>
+    */
   return (
     <>
-        <button onClick={()=>LogOut()}>log out</button>
-        <CrearEvento Categorias={Categorias} callBackCrearEvent={crearEvento} Usu={UserLs}/>
-        <ListEventos callBackDeleteEv={EliminarEvento}/>
+        <button onClick={()=>DeleteUser()}>log out</button>
+        <CrearEvento/>
+        <ListEventos/>
     </>
   )
 }

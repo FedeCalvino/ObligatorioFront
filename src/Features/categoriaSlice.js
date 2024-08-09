@@ -1,20 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    cuenta: 44
-}
+    categorias: []
+};
 
 export const categoriaSlice = createSlice({
-    name: "contador",
+    name: "categoria",
     initialState,
     reducers: {
-        incrementar: state => {
-            //immer
-            state.cuenta++
+        setCategorias: (state, action) => {
+            state.categorias = action.payload;
+            console.log("categorias cargadas");
         }
-
     }
-})
+});
 
-export const { incrementar } = categoriaSlice.actions;
+export const { setCategorias } = categoriaSlice.actions;
+
+
+export const selectCategorias = (state) => state.categoria.categorias;
+
 export default categoriaSlice.reducer;

@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import "../css/CrearEvento.css"
-export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
+import { addEvent } from "../Features/eventosSlice";
+import { useDispatch,useSelector } from 'react-redux';
+import { selectCategorias } from '../Features/categoriaSlice'; 
 
+export const CrearEvento = () => {
+    const url = `https://babytracker.develotion.com//`;
     const [CategoriaSelecc, setCategoriaSelecc] = useState('');
     const [dateTime, setDateTime] = useState('');
     const [DetalleEvento, setDetalleEvento] = useState('');
-
+    const dispatch = useDispatch();
+    const [User, setUser] = useState(() => {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
     const handleDateTimeChange = (event) => {
         const formattedDateTime = event.target.value.replace('T', ' ');
         setDateTime(formattedDateTime);
         console.log(formattedDateTime)
     };
+    const categorias = useSelector(state => state.categorias.categorias);
 
-    const AddEvent = () => {
+    console.log("categorias",categorias)
+    const AddEvent = async () => {
         const now = new Date();
         const selectedDateTime = new Date(dateTime);
 
@@ -25,16 +35,38 @@ export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
         if(!dateTime){
             setDateTime("");
         }
-        console.log(Usu)
         const Evento = {
-            IdCategoria: CategoriaSelecc,
-            IdUsuario: Usu.id,
+            idCategoria: CategoriaSelecc,
+            idUsuario: User.id,
             detalle: DetalleEvento,
             fecha: dateTime
         };
+        const urlEvent = "eventos.php"
+        console.log("userid",Evento)
+        console.log("userapikey",User.apiKey)
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': User.apiKey, // Añade tu apikey
+                'iduser': User.id, // Añade el iduser
+            }
+        };
+        requestOptions.body = JSON.stringify(Evento);
+        try {
+            const response = await fetch(url + urlEvent, requestOptions);
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
 
-        console.log(Evento);
-        callBackCrearEvent(Evento);
+            dispatch(addEvent(Evento));
+
+            const result = await response.json();
+            console.log("Evento",result);
+        } catch (error) {
+            console.error('FetchCategorias error:', error);
+        }
     };
     
 
@@ -50,11 +82,11 @@ export const CrearEvento = ({ Categorias, callBackCrearEvent ,Usu}) => {
                     required
                 >
                     <option value="">Seleccionar...</option>
-                    {Categorias.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                            {cat.tipo}
-                        </option>
-                    ))}
+                    {categorias.map((categoria) => (
+            <option key={categoria.id} value={categoria.id}>
+                {categoria.tipo}
+            </option>
+        ))}
                 </Form.Select>
             </Form.Group>
 
