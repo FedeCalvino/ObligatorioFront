@@ -6,7 +6,9 @@ form {
     max-width: 600px;
     margin: 0 auto;
 }
-
+.content{
+    width: 20%;
+}
 /* Estilos para los grupos de formulario */
 .form-group {
     margin-bottom: 15px;

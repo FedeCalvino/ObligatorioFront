@@ -1,50 +1,44 @@
-.btn {
-    margin: 5px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
+/* Listeventos.css */
+
+/* Contenedor para ambas tablas */
+.event-tables-container {
+    display: flex; /* Flexbox para alinear las tablas horizontalmente */
+    justify-content: end;
+    gap: 20px; /* Espacio entre las tablas */
+    padding: 10px;
+    width: 80%;
 }
 
-.btn-primary {
-    background-color: #007bff;
+/* Contenedor para cada tabla */
+.event-table-container {
+    max-width: 50%; /* Ancho máximo del contenedor */
+    max-height: 300px; /* Altura máxima para el contenedor */
+    overflow-y: auto; /* Hacer scroll vertical si el contenido es demasiado largo */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    background-color: white; /* Fondo blanco */
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-}
-
+/* Ajusta el estilo de la tabla */
 .event-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Colapsa los bordes de las celdas */
 }
 
 .event-table th, .event-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    padding: 8px; /* Espaciado interno de las celdas */
+    text-align: left; /* Alineación del texto */
+    border-bottom: 1px solid #ddd; /* Línea de separación entre filas */
 }
 
 .event-table th {
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: #f4f4f4; /* Color de fondo de los encabezados */
+    font-weight: bold; /* Negrita para los encabezados */
 }
 
-.event-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.event-table tr:hover {
-    background-color: #ddd;
-}
-
-.event-table div {
-    margin-bottom: 5px;
+.btn-danger {
+    font-size: 12px; /* Tamaño de fuente más pequeño para los botones */
+    padding: 4px 8px; /* Espaciado interno más pequeño */
+    margin-top: 4px; /* Espaciado superior para los botones */
 }

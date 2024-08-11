@@ -8,7 +8,7 @@ import { ListEventos } from './ListEventos';
 import {setCategorias} from "../Features/categoriaSlice";
 import {Charts} from './Charts';
 import {Informes} from './Informes';
-
+import "../css/Home.css"
 
 
 export const Home = () => {
@@ -108,8 +108,10 @@ export const Home = () => {
   return (
     <>
         <button onClick={()=>Logout()}>log out</button>
-        <CrearEvento/>
-        <ListEventos/>
+        <div className='eventCrear'>
+            <CrearEvento/>
+            <ListEventos/>
+        </div>
         <Charts/>
         <Informes/>
     </>

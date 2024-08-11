@@ -75,7 +75,7 @@ export const CrearEvento = () => {
     
 
     return (
-        <>
+        <div className='content'>
             <Form.Group>
                 <Form.Label>Categoría</Form.Label>
                 <Form.Select
@@ -123,6 +123,6 @@ export const CrearEvento = () => {
             <button onClick={()=>AddEvent()} className="btn btn-primary">
                 Crear Evento
             </button>
-        </>
+            </div>
     );
 };
