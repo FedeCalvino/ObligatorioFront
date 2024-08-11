@@ -9,7 +9,6 @@ export const ListEventos = () => {
         return storedUser ? JSON.parse(storedUser) : null;
     });
     const eventoslist = useSelector(state => state.eventos.eventos);
-    const [showEvents, setShowEvents] = useState(false);
 
     const getTodayDate = () => {
         const today = new Date();
@@ -24,9 +23,6 @@ export const ListEventos = () => {
 
     return (
         <>
-            <button onClick={mostrareventos} className="btn btn-primary">Get eventos</button>
-            <button onClick={ocultareventos} className="btn btn-secondary">Ocultar eventos</button>
-           
                 <table className="event-table">
                     <thead>
                         <tr>

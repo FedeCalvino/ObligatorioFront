@@ -66,6 +66,7 @@ export const Home = () => {
     } 
 
     const FetchEventosUser = async () => {
+        dispatch(clearEvent()); 
         const urlEvent = `https://babytracker.develotion.com//eventos.php?idUsuario=${User.id}`; // Corrected URL syntax
         console.log(urlEvent)
         const requestOptions = {

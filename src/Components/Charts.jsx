@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import {useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import {
     Chart as ChartJS,
@@ -38,25 +38,64 @@ export const options = {
 export const Charts = () => {
     const eventoslist = useSelector(state => state.eventos.eventos);
     const categorias = useSelector(state => state.categorias.categorias);
-    const [categoriasTipos, setCategoriasTipos] = useState([]);
+    const [eventosPorCategoria, setEventosPorCategoria] = useState([]);
 
-useEffect(()=>{
-    const tipos = categorias.map(cat => cat.tipo);
-    setCategoriasTipos(tipos);
-    //orden
-    //comida,paseo,pañal,sueño,biberon,juegos
-},[])
+    const categoriasTipos = ['comida', 'paseo', 'pañal', 'sueño', 'biberon', 'juego'];
 
-  return (
-    <Bar options={options} data={{
-        labels:categoriasTipos,
-        datasets: [
-            {
-                label: 'Máximas',
-                data: [4, 5, 6, 7, 3, 4, 5],
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            }
-        ],
-    }} />
-  )
-}
+    useEffect(() => {
+
+        console.log("eventoslist",eventoslist)
+        if (categorias.length > 0 && eventoslist.length > 0) {
+            // Crear un objeto para contar los eventos por cada categoría
+            const eventosCount = [0,0,0,0,0,0]
+
+            // Contar los eventos por cada categoría
+            eventoslist.forEach(evento => {
+                const categoria = categorias.find(cat => cat.id === evento.idCategoria);
+                console.log("categoriacategoria",categoria)
+                if(categoria){
+                    switch(categoria.id){
+                        case 31:
+                            eventosCount[0]++;
+                        break
+                        case 32:
+                            eventosCount[1]++;
+                        break
+                        case 33:
+                            eventosCount[2]++;
+                        break
+                        case 34:
+                            eventosCount[3]++;
+                        break
+                        case 35:
+                            eventosCount[4]++;
+                        break
+                        case 36:
+                            eventosCount[5]++;
+                        break 
+                    }
+                }
+            });
+
+            console.log("Eventos por eventosCount:", eventosCount);
+            setEventosPorCategoria(eventosCount);
+        }
+    },[eventoslist]);
+
+
+    return (
+        <Bar 
+            options={options} 
+            data={{
+                labels: categoriasTipos,
+                datasets: [
+                    {
+                        label: 'Eventos',
+                        data: eventosPorCategoria,
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    }
+                ],
+            }} 
+        />
+    );
+};
