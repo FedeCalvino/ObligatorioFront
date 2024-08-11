@@ -25,6 +25,7 @@ export const CrearEvento = () => {
     console.log("categorias",categorias)
     const AddEvent = async () => {
         const now = new Date();
+        now.setHours(now.getHours() - 3); //esto para arreglar la zona horaria a Uy 
         const selectedDateTime = new Date(dateTime);
 
         if (selectedDateTime > now ) {

@@ -7,6 +7,8 @@ import { addEvent } from "../Features/eventosSlice";
 import { ListEventos } from './ListEventos';
 import {setCategorias} from "../Features/categoriaSlice";
 import {Charts} from './Charts';
+import {Informes} from './Informes';
+
 
 
 export const Home = () => {
@@ -109,6 +111,7 @@ export const Home = () => {
         <CrearEvento/>
         <ListEventos/>
         <Charts/>
+        <Informes/>
     </>
   )
 }
