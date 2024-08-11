@@ -28,19 +28,22 @@ export const CrearEvento = () => {
         const selectedDateTime = new Date(dateTime);
 
         if (selectedDateTime > now ) {
-            //alerta fecha 
+            alert("La fecha no puede ser futura");
             return;
         }
+       
+  
         console.log("dateTime",dateTime)
-        if(!dateTime){
-            setDateTime("");
-        }
         const Evento = {
             idCategoria: CategoriaSelecc,
             idUsuario: User.id,
             detalle: DetalleEvento,
             fecha: dateTime
         };
+        if(!dateTime){
+            const formatednow =now.toISOString().replace('T', ' ').substring(0, 19);
+            Evento.fecha = formatednow
+        }
         const urlEvent = "eventos.php"
         console.log("userid",Evento)
         console.log("userapikey",User.apiKey)

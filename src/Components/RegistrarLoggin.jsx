@@ -75,6 +75,7 @@ export const RegistrarLoggin = () => {
         setMensajeerrorRegistro("fallo en la conexio");
         seterrorRegistro(true);
       });
+      console.log("se creo el usuario")
   };
 
   const LoginUsuario = async () => {
@@ -104,6 +105,7 @@ export const RegistrarLoggin = () => {
             apiKey: result.apiKey,
           };
           localStorage.setItem("user", JSON.stringify(newUser));
+          setUser(newUser);
           setMensajeerrorLogin(null);
           seterrorLogin(false);
         } else {

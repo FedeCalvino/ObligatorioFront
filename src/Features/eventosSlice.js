@@ -19,11 +19,15 @@ export const eventosSlice = createSlice({
         },
         deleteEvent: (state, action) => {
             state.eventos.splice(action.payload, 1); // Remove the event at the specified index
-            console.log("Evento eliminado en el índice:", action.payload);
+            console.log("Evento eliminado en el índice:", action.payload)
+        },
+        clearEvent: (state) => {
+            state.eventos = [];
+            console.log("Eventos borrados");
         }
     }
 });
 
-export const { addEvent,deleteEvent, setEvent} = eventosSlice.actions;
+export const { addEvent,deleteEvent, setEvent,clearEvent} = eventosSlice.actions;
 
 export default eventosSlice.reducer;

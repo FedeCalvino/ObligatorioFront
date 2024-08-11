@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { CrearEvento } from './CrearEvento';
+import { clearEvent } from "../Features/eventosSlice";
 import { useDispatch } from 'react-redux';
 import { addEvent } from "../Features/eventosSlice";
 import { ListEventos } from './ListEventos';
 import {setCategorias} from "../Features/categoriaSlice";
 import {Charts} from './Charts';
+
 
 export const Home = () => {
     
@@ -44,9 +46,10 @@ export const Home = () => {
         }); 
     };
     
-    const DeleteUser = () => {
+    const Logout = () => {
         localStorage.removeItem('user');
         setUser(null); // Opcional: actualiza el estado local si es necesario
+        dispatch(clearEvent()); 
     };
 
 
@@ -101,7 +104,7 @@ export const Home = () => {
 
   return (
     <>
-        <button onClick={()=>DeleteUser()}>log out</button>
+        <button onClick={()=>Logout()}>log out</button>
         <CrearEvento/>
         <ListEventos/>
         <Charts/>
