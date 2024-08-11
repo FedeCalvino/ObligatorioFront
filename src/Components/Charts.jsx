@@ -22,18 +22,45 @@ ChartJS.register(
 );
 
 export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Total Eventos por Categoria',
+        },
     },
-    title: {
-      display: true,
-      text: "",
-    },
-  },
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1, // Incrementos de 1 en el eje Y
+            }
+        }
+    }
 };
-
+export const options2 = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: 'top',
+        },
+        title: {
+            display: true,
+            text: 'Eventos por dia de semana',
+        },
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            ticks: {
+                stepSize: 1, // Incrementos de 1 en el eje Y
+            }
+        }
+    }
+};
 export const Charts = () => {
   const eventoslist = useSelector((state) => state.eventos.eventos);
   const categorias = useSelector((state) => state.categorias.categorias);
@@ -173,7 +200,7 @@ export const Charts = () => {
 
     <div className="bar-chart">
         <Bar 
-            options={options} 
+            options={options2} 
             data={{
                 labels: DiasSemana,
                 datasets: [
