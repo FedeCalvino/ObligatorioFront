@@ -1,0 +1,10 @@
+.chart-container {
+    display: flex;
+    align-items: center;
+    margin-left: 80px;
+}
+
+.bar-chart {
+    width: 50%; /* Ajusta según sea necesario */
+    max-width: 600px;
+}
