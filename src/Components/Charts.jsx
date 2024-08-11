@@ -36,16 +36,74 @@ export const options = {
 
 
 export const Charts = () => {
+    
     const eventoslist = useSelector(state => state.eventos.eventos);
     const categorias = useSelector(state => state.categorias.categorias);
     const [eventosPorCategoria, setEventosPorCategoria] = useState([]);
-
+    const Eventoscomidas = eventoslist.filter(evento=>evento.idCategoria===31)
+    const [ComidasPorDiaList,setComidasPorDiaList]=useState([])
     const categoriasTipos = ['comida', 'paseo', 'pañal', 'sueño', 'biberon', 'juego'];
+    const DiasSemana = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado','Domingo'];
+
 
     useEffect(() => {
-
-        console.log("eventoslist",eventoslist)
         if (categorias.length > 0 && eventoslist.length > 0) {
+            setComidasPorDia()
+            setEventosPorTipo();
+        }
+    },[eventoslist]);
+
+
+
+    const setComidasPorDia = () => {
+        const comidasPorDia = [0,0,0,0,0,0,0];
+    
+        // Filtrar eventos de comida
+        const eventosComidas = eventoslist.filter(evento => evento.idCategoria === 31);
+    
+        // Contar comidas por día
+        eventosComidas.forEach(evento => {
+            const fechaEvento = new Date(evento.fecha);
+            let diaSemana = fechaEvento.getDay(); 
+            diaSemana = (diaSemana === 0) ? 6 : diaSemana - 1;
+            // 0 es domingo, 1 es lunes, etc.
+    
+            switch (diaSemana) {
+                case 0:
+                    comidasPorDia[0]++;
+                    break;
+                case 1:
+                    comidasPorDia[1]++;
+                    break;
+                case 2:
+                    comidasPorDia[2]++;
+                    break;
+                case 3:
+                    comidasPorDia[3]++;
+                    break;
+                case 4:
+                    comidasPorDia[4]++;
+                    break;
+                case 5:
+                    comidasPorDia[5]++;
+                    break;
+                case 6:
+                    comidasPorDia[6]++;
+                    break;
+                default:
+                    break;
+            }
+        });
+    
+        // Convertir el objeto a un array en el orden correcto de los días
+    
+        // Actualizar el estado
+        setComidasPorDiaList(comidasPorDia);
+    };
+
+    const setEventosPorTipo=()=>{
+        console.log("eventoslist",eventoslist)
+
             // Crear un objeto para contar los eventos por cada categoría
             const eventosCount = [0,0,0,0,0,0]
 
@@ -79,11 +137,11 @@ export const Charts = () => {
 
             console.log("Eventos por eventosCount:", eventosCount);
             setEventosPorCategoria(eventosCount);
-        }
-    },[eventoslist]);
+    }
 
 
     return (
+        <>
         <Bar 
             options={options} 
             data={{
@@ -97,5 +155,21 @@ export const Charts = () => {
                 ],
             }} 
         />
+
+        <Bar 
+        options={options} 
+        data={{
+            labels: DiasSemana,
+            datasets: [
+                {
+                    label: 'Comidas',
+                    data: ComidasPorDiaList,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                }
+            ],
+        }} 
+        />
+
+    </>
     );
 };
