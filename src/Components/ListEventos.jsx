@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import '../css/Listeventos.css'; // Asegúrate de que la ruta sea correcta
 import { deleteEvent } from '../Features/eventosSlice';
+import { Toast } from 'primereact/toast';
+import 'primereact/resources/themes/saga-blue/theme.css'; 
+import 'primereact/resources/primereact.min.css';   
 
 export const ListEventos = () => {
+    const url = `https://babytracker.develotion.com//`;
     const [user, setUser] = useState(() => {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
@@ -12,7 +16,8 @@ export const ListEventos = () => {
     const dispatch = useDispatch();
     const eventoslist = useSelector(state => state.eventos.eventos);
     const categorias = useSelector((state) => state.categorias.categorias);
-
+    const toastTopCenter = useRef(null);
+    
     const eventosConCategorias = eventoslist.map(event => {
         console.log(event)
         const categoria = categorias.find(cat => cat.id === event.idCategoria);
@@ -38,13 +43,44 @@ export const ListEventos = () => {
     const eventosDelDia = eventosConCategorias.filter(evento => evento.fecha.split(' ')[0] === todayDate);
     const eventosAnteriores = eventosConCategorias.filter(evento => evento.fecha.split(' ')[0] !== todayDate);
 
-    const handleDelete = (EventoId) => {
-        console.log(EventoId)
-        dispatch(deleteEvent(EventoId))
+
+    const DeleteEvent = async (IdEvent) => {
+        
+        const urlEventdel = "eventos.php?idEvento="
+        const requestOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': user.apiKey, // Añade tu apikey
+                'iduser': user.id, // Añade el iduser
+            }
+        };
+        try {
+            const response = await fetch(url + urlEventdel+IdEvent, requestOptions);
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok' + response.statusText);
+            }
+            toastTopCenter.current.show({ severity: "success", summary: "evento eliminado", detail: "", life: 3000 });
+        } catch (error) {
+            console.error('FetchCategorias error:', error);
+        }
     };
 
+    const handleDelete = (EventoId) => {
+        dispatch(deleteEvent(EventoId))
+        DeleteEvent(EventoId)
+    };
+
+
+    
+
     return (
-        <div className="event-tables-container">
+        <> 
+        <div style={{width:"50px"}} className="card flex justify-content-center">
+                <Toast style={{width:"50px",height:"30px"}} ref={toastTopCenter} position="top-center" />
+        </div>
+        <div className="event-tables-container">     
             <div className="event-table-container">
                 <h3>Eventos del Día</h3>
                 <table className="event-table">
@@ -95,7 +131,7 @@ export const ListEventos = () => {
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
                                     <td>
-                                        <button onClick={() => handleDelete(index, false)} className="btn btn-danger">Eliminar</button>
+                                        <button onClick={() => handleDelete(evento.id)} className="btn btn-danger">Eliminar</button>
                                     </td>
                                 </tr>
                             ))
@@ -108,5 +144,6 @@ export const ListEventos = () => {
                 </table>
             </div>
         </div>
+        </>
     );
 };
