@@ -9,6 +9,7 @@ export const ListEventos = () => {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
+    const dispatch = useDispatch();
     const eventoslist = useSelector(state => state.eventos.eventos);
     const categorias = useSelector((state) => state.categorias.categorias);
 
@@ -38,6 +39,7 @@ export const ListEventos = () => {
     const eventosAnteriores = eventosConCategorias.filter(evento => evento.fecha.split(' ')[0] !== todayDate);
 
     const handleDelete = (EventoId) => {
+        console.log(EventoId)
         dispatch(deleteEvent(EventoId))
     };
 

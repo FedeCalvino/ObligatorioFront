@@ -19,6 +19,7 @@ export const eventosSlice = createSlice({
         },
         deleteEvent: (state, action) => {
             const EventoId=action.payload
+            console.log("en slice",EventoId)
             state.eventos.filter(evento=>evento.id!==EventoId)
         },
         clearEvent: (state) => {
