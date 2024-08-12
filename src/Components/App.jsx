@@ -7,22 +7,6 @@ import { Home } from './Home.jsx';
 import { NotFound } from './NotFound.jsx';
 
 export const App = () => {
-    const url = `https://babytracker.develotion.com//`;
-
-    const [User, setUser] = useState(() => {
-        const storedUser = localStorage.getItem('user');
-        return storedUser ? JSON.parse(storedUser) : null;
-    });
-
-    console.log("usuario",User)
-
-    const DeleteUser = () => {
-        localStorage.removeItem('user');
-        setUser(null); // Opcional: actualiza el estado local si es necesario
-    };
-
-
-
   return (
     <Provider store={Store}>
         <BrowserRouter>

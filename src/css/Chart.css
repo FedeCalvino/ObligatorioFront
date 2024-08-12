@@ -2,9 +2,11 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+    flex-wrap: wrap; 
 }
 
 .bar-chart {
-    width: 50%; /* Ajusta según sea necesario */
-    max-width: 600px;
+    width: 100%; 
+    max-width: 550px; 
+    margin: 10px 0; 
 }
