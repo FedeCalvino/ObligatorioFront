@@ -70,15 +70,15 @@ export const CrearEvento = () => {
         requestOptions.body = JSON.stringify(Evento);
         try {
             const response = await fetch(url + urlEvent, requestOptions);
-    
             if (!response.ok) {
                 throw new Error('Network response was not ok' + response.statusText);
             }
-
+            const result = await response.json();
+            Evento.id=result.idEvento
             dispatch(addEvent(Evento));
             toastTopCenter.current.show({ severity: "success", summary: "evento creado con exito", detail: "", life: 3000 });
-            const result = await response.json();
             console.log("Evento",result);
+
         } catch (error) {
             console.error('FetchCategorias error:', error);
         }

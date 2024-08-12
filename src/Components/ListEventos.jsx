@@ -68,6 +68,7 @@ export const ListEventos = () => {
     };
 
     const handleDelete = (EventoId) => {
+        console.log("eventosDelDia",eventosDelDia)
         dispatch(deleteEvent(EventoId))
         DeleteEvent(EventoId)
     };
