@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import "../css/CrearEvento.css"
 import { addEvent } from "../Features/eventosSlice";
 import { useDispatch,useSelector } from 'react-redux';
 import { selectCategorias } from '../Features/categoriaSlice'; 
+import { Toast } from 'primereact/toast';
 
 export const CrearEvento = () => {
+
+    const toastTopCenter = useRef(null);
     const url = `https://babytracker.develotion.com//`;
     const [CategoriaSelecc, setCategoriaSelecc] = useState('');
     const [dateTime, setDateTime] = useState('');
     const [DetalleEvento, setDetalleEvento] = useState('');
     const dispatch = useDispatch();
+
     const [User, setUser] = useState(() => {
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
+
     const handleDateTimeChange = (event) => {
         const formattedDateTime = event.target.value.replace('T', ' ');
         setDateTime(formattedDateTime);
         console.log(formattedDateTime)
     };
+
     const categorias = useSelector(state => state.categorias.categorias);
 
     console.log("categorias",categorias)
@@ -32,7 +38,10 @@ export const CrearEvento = () => {
             alert("La fecha no puede ser futura");
             return;
         }
-       
+        if (!CategoriaSelecc) {
+            alert("debe seleccionar la categoria");
+            return;
+        }
   
         console.log("dateTime",dateTime)
         const Evento = {
@@ -65,7 +74,7 @@ export const CrearEvento = () => {
             }
 
             dispatch(addEvent(Evento));
-
+            toastTopCenter.current.show({ severity: "Success", summary: "evento creado con exito", detail: "", life: 3000 });
             const result = await response.json();
             console.log("Evento",result);
         } catch (error) {
@@ -75,6 +84,10 @@ export const CrearEvento = () => {
     
 
     return (
+        <>
+        <div style={{width:"50px"}} className="card flex justify-content-center">
+                <Toast ref={toastTopCenter} position="top-center" />
+        </div>
         <div className='content'>
             <Form.Group>
                 <Form.Label>Categoría</Form.Label>
@@ -87,10 +100,10 @@ export const CrearEvento = () => {
                 >
                     <option value="">Seleccionar...</option>
                     {categorias.map((categoria) => (
-            <option key={categoria.id} value={categoria.id}>
-                {categoria.tipo}
-            </option>
-        ))}
+                        <option key={categoria.id} value={categoria.id}>
+                            {categoria.tipo}
+                        </option>
+                    ))}
                 </Form.Select>
             </Form.Group>
 
@@ -124,5 +137,6 @@ export const CrearEvento = () => {
                 Crear Evento
             </button>
             </div>
+        </>
     );
 };

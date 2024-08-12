@@ -49,7 +49,7 @@ export const options2 = {
         },
         title: {
             display: true,
-            text: 'Eventos por dia de semana',
+            text: 'Comidas por dia de semana',
         },
     },
     scales: {
