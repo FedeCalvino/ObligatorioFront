@@ -5,6 +5,8 @@ import { addEvent } from "../Features/eventosSlice";
 import { useDispatch,useSelector } from 'react-redux';
 import { selectCategorias } from '../Features/categoriaSlice'; 
 import { Toast } from 'primereact/toast';
+import 'primereact/resources/themes/saga-blue/theme.css'; 
+import 'primereact/resources/primereact.min.css';          
 
 export const CrearEvento = () => {
 
@@ -35,11 +37,11 @@ export const CrearEvento = () => {
         const selectedDateTime = new Date(dateTime);
 
         if (selectedDateTime > now ) {
-            alert("La fecha no puede ser futura");
+            toastTopCenter.current.show({ severity: "error", summary: "La fecha no puede ser futura", detail: "", life: 3000 });
             return;
         }
         if (!CategoriaSelecc) {
-            alert("debe seleccionar la categoria");
+            toastTopCenter.current.show({ severity: "error", summary: "debe seleccionar la categoria", detail: "", life: 3000 });
             return;
         }
   
@@ -74,7 +76,7 @@ export const CrearEvento = () => {
             }
 
             dispatch(addEvent(Evento));
-            toastTopCenter.current.show({ severity: "Success", summary: "evento creado con exito", detail: "", life: 3000 });
+            toastTopCenter.current.show({ severity: "success", summary: "evento creado con exito", detail: "", life: 3000 });
             const result = await response.json();
             console.log("Evento",result);
         } catch (error) {
@@ -86,7 +88,7 @@ export const CrearEvento = () => {
     return (
         <>
         <div style={{width:"50px"}} className="card flex justify-content-center">
-                <Toast ref={toastTopCenter} position="top-center" />
+                <Toast style={{width:"50px",height:"30px"}} ref={toastTopCenter} position="top-center" />
         </div>
         <div className='content'>
             <Form.Group>
@@ -116,9 +118,10 @@ export const CrearEvento = () => {
                     value={dateTime}
                     onChange={handleDateTimeChange}
                     step="1" // Paso de 1 segundo para permitir seleccionar cualquier fecha y hora
-                    className="form-control"
+                    className="form-control1"
                     required
                 />
+                <button className='botonHoy' onClick={()=>setDateTime("")}>Hoy</button>
             </Form.Group>
 
             <Form.Group>
