@@ -36,7 +36,7 @@ export const CrearEvento = () => {
   
         console.log("dateTime",dateTime)
         const Evento = {
-            idCategoria: CategoriaSelecc,
+            idCategoria: Number(CategoriaSelecc),
             idUsuario: User.id,
             detalle: DetalleEvento,
             fecha: dateTime
@@ -79,7 +79,7 @@ export const CrearEvento = () => {
             <Form.Group>
                 <Form.Label>Categoría</Form.Label>
                 <Form.Select
-                    className="form-select"
+                    className="form-select1"
                     aria-label="Seleccionar Categoría"
                     onChange={(e) => setCategoriaSelecc(e.target.value)}
                     value={CategoriaSelecc}
@@ -95,7 +95,7 @@ export const CrearEvento = () => {
             </Form.Group>
 
             <Form.Group>
-                <Form.Label>Seleccionar fecha y hora:</Form.Label>
+                <Form.Label>fecha y hora:</Form.Label>
                 <input
                     type="datetime-local"
                     id="datetime"

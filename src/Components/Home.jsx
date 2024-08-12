@@ -107,7 +107,7 @@ export const Home = () => {
 
   return (
     <>
-        <button onClick={()=>Logout()}>log out</button>
+        <button className='botonlogOut' onClick={()=>Logout()}>log out</button>
         <div className='eventCrear'>
             <CrearEvento/>
             <ListEventos/>

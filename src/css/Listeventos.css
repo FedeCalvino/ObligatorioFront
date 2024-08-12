@@ -11,13 +11,14 @@
 
 /* Contenedor para cada tabla */
 .event-table-container {
-    max-width: 50%; /* Ancho máximo del contenedor */
-    max-height: 300px; /* Altura máxima para el contenedor */
-    overflow-y: auto; /* Hacer scroll vertical si el contenido es demasiado largo */
-    border: 1px solid #ccc; /* Borde gris claro */
-    border-radius: 5px; /* Bordes redondeados */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    background-color: white; /* Fondo blanco */
+    text-align: center;
+    max-width: 50%; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    background-color: white; 
 }
 
 /* Ajusta el estilo de la tabla */

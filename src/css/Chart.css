@@ -1,7 +1,7 @@
 .chart-container {
     display: flex;
     align-items: center;
-    margin-left: 80px;
+    justify-content: space-around;
 }
 
 .bar-chart {

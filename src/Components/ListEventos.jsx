@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import '../css/Listeventos.css'; // Asegúrate de que la ruta sea correcta
+import { deleteEvent } from '../Features/eventosSlice';
 
 export const ListEventos = () => {
     const [user, setUser] = useState(() => {
@@ -11,7 +13,12 @@ export const ListEventos = () => {
     const categorias = useSelector((state) => state.categorias.categorias);
 
     const eventosConCategorias = eventoslist.map(event => {
+        console.log(event)
         const categoria = categorias.find(cat => cat.id === event.idCategoria);
+        if (!categoria) {
+            console.warn(`Categoría con ID ${event.idCategoria} no encontrada para el evento ${event.detalle}`);
+        }
+
         return {
             ...event,
             categoriaNombre: categoria ? categoria.tipo : 'Sin Categoría' // Adjust according to your category property
@@ -20,17 +27,18 @@ export const ListEventos = () => {
 
 
     const getTodayDate = () => {
-        const today = new Date();
+        let today = new Date();
+        today.setHours(today.getHours() - 3); 
         return today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
     };
 
     const todayDate = getTodayDate();
+
     const eventosDelDia = eventosConCategorias.filter(evento => evento.fecha.split(' ')[0] === todayDate);
     const eventosAnteriores = eventosConCategorias.filter(evento => evento.fecha.split(' ')[0] !== todayDate);
 
-    const handleDelete = (index, isToday) => {
-        // Función para eliminar eventos (deberías implementar esta función)
-        // Aquí deberías manejar la eliminación del evento
+    const handleDelete = (EventoId) => {
+        dispatch(deleteEvent(EventoId))
     };
 
     return (
@@ -54,7 +62,7 @@ export const ListEventos = () => {
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
                                     <td>
-                                        <button onClick={() => handleDelete(index, true)} className="btn btn-danger">Eliminar</button>
+                                        <button onClick={() => handleDelete(evento.id)} className="btn btn-danger">Eliminar</button>
                                     </td>
                                 </tr>
                             ))

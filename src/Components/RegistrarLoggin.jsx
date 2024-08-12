@@ -168,7 +168,7 @@ export const RegistrarLoggin = () => {
     <>
       {CrearRegistrar ? (
         <>
-          {errorRegistro ? { MensajeerrorRegistro } : null}
+          {errorRegistro && <p style={{width:"100%",backgroundColor:"red",height:"40px"}}>{errorRegistro}</p>}
           <div className="form-container">
             <h1>Registro</h1>
             <Form.Label>Usuario</Form.Label>

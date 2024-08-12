@@ -18,8 +18,8 @@ export const eventosSlice = createSlice({
             console.log("Nuevo evento agregado:", action.payload);
         },
         deleteEvent: (state, action) => {
-            state.eventos.splice(action.payload, 1); // Remove the event at the specified index
-            console.log("Evento eliminado en el índice:", action.payload)
+            const EventoId=action.payload
+            state.eventos.filter(evento=>evento.id!==EventoId)
         },
         clearEvent: (state) => {
             state.eventos = [];

@@ -8,10 +8,12 @@ form {
 }
 .content{
     width: 20%;
+    margin-left: 200px;
+    text-align: center;
 }
 /* Estilos para los grupos de formulario */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 /* Estilos para las etiquetas */
@@ -31,8 +33,11 @@ form {
 }
 
 /* Estilos para el select */
-.form-select {
+.form-select1 {
     border-radius: 4px;
+    text-align: center;
+    height: 30px;
+    width: 150px;
     border: 1px solid #ced4da;
 }
 
@@ -42,6 +47,7 @@ form {
     border-color: #007bff;
     color: #fff;
     padding: 10px 15px;
+    margin-top: 10px;
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
