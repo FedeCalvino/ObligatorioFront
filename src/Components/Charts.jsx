@@ -88,7 +88,7 @@ export const Charts = () => {
   ];
 
   useEffect(() => {
-    if (categorias.length > 0 && eventoslist.length > 0) {
+    if (categorias.length > 0) {
       setComidasPorDia();
       setEventosPorTipo();
     }
@@ -144,10 +144,8 @@ export const Charts = () => {
 
   const setEventosPorTipo = () => {
     console.log("eventoslist", eventoslist);
-
     // Crear un objeto para contar los eventos por cada categoría
     const eventosCount = [0, 0, 0, 0, 0, 0];
-
     // Contar los eventos por cada categoría
     eventoslist.forEach((evento) => {
       const categoria = categorias.find((cat) => cat.id === evento.idCategoria);
@@ -175,7 +173,6 @@ export const Charts = () => {
         }
       }
     });
-
     console.log("Eventos por eventosCount:", eventosCount);
     setEventosPorCategoria(eventosCount);
   };
