@@ -27,18 +27,46 @@ export const options = {
         legend: {
             position: 'top',
         },
+        labels: {
+            font: {
+                size: 16, // Ajusta el tamaño de la leyenda
+            }
+        },
         title: {
             display: true,
             text: 'Total Eventos por Categoria',
         },
     },
+    elements: {
+        bar: {
+            
+        }
+    },
+    
     scales: {
-        y: {
-            beginAtZero: true,
+        x: {
             ticks: {
-                stepSize: 1, // Incrementos de 1 en el eje Y
+                font: {
+                    size: 14, // Ajusta el tamaño de las etiquetas en el eje x
+                }
+            },
+            grid: {
+                lineWidth: 2, // Grosor de las líneas de la cuadrícula
+            }
+        },
+        y: {
+            ticks: {
+                beginAtZero: true,
+                font: {
+                    size: 14, // Ajusta el tamaño de las etiquetas en el eje y
+                    stepSize: 1, // Incrementos de 1 en el eje Y
+                }
+            },
+            grid: {
+                lineWidth: 4, // Grosor de las líneas de la cuadrícula
             }
         }
+        
     }
 };
 export const options2 = {
@@ -47,18 +75,40 @@ export const options2 = {
         legend: {
             position: 'top',
         },
+        labels: {
+            font: {
+                size: 16, // Ajusta el tamaño de la leyenda
+            }
+        },
         title: {
             display: true,
             text: 'Comidas por dia de semana',
         },
     },
     scales: {
-        y: {
-            beginAtZero: true,
+        x: {
             ticks: {
-                stepSize: 1, // Incrementos de 1 en el eje Y
+                font: {
+                    size: 14, // Ajusta el tamaño de las etiquetas en el eje x
+                }
+            },
+            grid: {
+                lineWidth: 2, // Grosor de las líneas de la cuadrícula
+            }
+        },
+        y: {
+            ticks: {
+                beginAtZero: true,
+                font: {
+                    size: 14, // Ajusta el tamaño de las etiquetas en el eje y
+                    stepSize: 1, // Incrementos de 1 en el eje Y
+                }
+            },
+            grid: {
+                lineWidth: 4, // Grosor de las líneas de la cuadrícula
             }
         }
+        
     }
 };
 export const Charts = () => {
@@ -188,7 +238,7 @@ export const Charts = () => {
                     {
                         label: 'Eventos',
                         data: eventosPorCategoria,
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        backgroundColor: 'rgba(0, 0, 0)',
                     }
                 ],
             }} 
@@ -204,7 +254,7 @@ export const Charts = () => {
                     {
                         label: 'Comidas',
                         data: ComidasPorDiaList,
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        backgroundColor: 'rgba(0, 0, 0)',
                     }
                 ],
             }} 

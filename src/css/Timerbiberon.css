@@ -1,8 +1,17 @@
 .timerContainer{
-    width: 50%;
+    width: 700px;
+
 }
 .InformeTimer{
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+.timerdiv{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
 }

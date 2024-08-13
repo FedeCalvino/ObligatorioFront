@@ -1,7 +1,10 @@
 .eventCrear{
     display: flex;
-    justify-content: space-around;
     height: 250px;
+}
+body{
+    background: rgb(217,217,217);
+    background: radial-gradient(circle, rgba(217,217,217,1) 0%, rgba(222,222,221,1) 50%, rgba(248,248,245,1) 100%);
 }
 
 .botonlogOut {
@@ -18,7 +21,7 @@
 }
 .InformeTimer{
     display: flex;
-    justify-content: space-around;  
+    width: 100%;
 }
 
 .botonlogOut:hover {

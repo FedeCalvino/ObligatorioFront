@@ -21,16 +21,18 @@ export const TimerBiberon = () => {
 
     const ultimaIngesta = new Date(ultimoBiberon.fecha);
     const ahora = new Date();
+    console.log("ultimaIngesta",ultimaIngesta)
     const proximoBiberon = new Date(ultimaIngesta.getTime() + 4 * 60 * 60 * 1000); // Suma 4 horas
+    console.log("proximoBiberon",proximoBiberon)
     const diferencia = proximoBiberon - ahora;
 
     if (diferencia > 0) {
       const horas = Math.floor(diferencia / (1000 * 60 * 60));
       const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-      setTiempoRestante(`Faltan ${horas}h ${minutos}m para el proximo biberon`);
+        setTiempoRestante(`Faltan ${horas}h ${minutos}m para el proximo biberon`);
       setColorTexto("green");
-    } else {
-      setTiempoRestante("¡Es hora de un nuevo biberón!");
+    }else{
+        setTiempoRestante("¡Necesita un nuevo biberón!");
       setColorTexto("red");
     }
   };
@@ -39,5 +41,5 @@ export const TimerBiberon = () => {
     calcularTiempoRestante();
   }, [eventosBiberones]);
 
-  return <div style={{ color: colorTexto }}>{tiempoRestante}</div>;
+  return <div className="timerdiv" style={{ color: colorTexto }}>{tiempoRestante}</div>;
 };

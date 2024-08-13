@@ -35,7 +35,7 @@ export const CrearEvento = () => {
         const now = new Date();
         now.setHours(now.getHours() - 3); //esto para arreglar la zona horaria a Uy 
         const selectedDateTime = new Date(dateTime);
-        selectedDateTime.setHours(selectedDateTime.getHours() -3);
+        selectedDateTime.setHours(selectedDateTime.getHours() -3)
         if (selectedDateTime > now ) {
             toastTopCenter.current.show({ severity: "error", summary: "La fecha no puede ser futura", detail: "", life: 3000 });
             return;
