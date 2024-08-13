@@ -25,7 +25,7 @@ export const Informes = () => {
 
   // Calcula el tiempo transcurrido desde el último biberón
   const getTimeSinceLastBiberon = () => {
-  if (totalBiberones === 0) {
+      if (totalBiberones === 0) {
             return 'No hay biberones hoy';
         }
           // Ordena los biberones del día por fecha (más reciente primero)
@@ -58,8 +58,7 @@ export const Informes = () => {
     return `${horas} horas y ${minutos} minutos`;
       };
       return (
-        <div>
-            <h2>Informes</h2>
+        <div className='containerInform'>
             <table className="informes-table">
                 <thead>
                     <tr>

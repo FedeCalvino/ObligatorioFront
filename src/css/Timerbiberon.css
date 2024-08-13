@@ -1,0 +1,8 @@
+.timerContainer{
+    width: 50%;
+}
+.InformeTimer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -16,6 +16,10 @@
     cursor: pointer; 
     transition: background-color 0.3s ease; 
 }
+.InformeTimer{
+    display: flex;
+    justify-content: space-around;  
+}
 
 .botonlogOut:hover {
     background-color: #d43f3a; /* Cambia el color de fondo al pasar el cursor por encima */

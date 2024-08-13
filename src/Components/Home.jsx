@@ -9,6 +9,7 @@ import {setCategorias} from "../Features/categoriaSlice";
 import {Charts} from './Charts';
 import {Informes} from './Informes';
 import "../css/Home.css"
+import { TimerBiberon } from './TimerBiberon';
 
 
 export const Home = () => {
@@ -113,7 +114,10 @@ export const Home = () => {
             <ListEventos/>
         </div>
         <Charts/>
-        <Informes/>
+        <div className='InformeTimer'>
+            <Informes/>
+            <TimerBiberon/>
+        </div>
     </>
   )
 }
