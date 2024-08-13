@@ -72,6 +72,9 @@ export const ListEventos = () => {
         dispatch(deleteEvent(EventoId))
         DeleteEvent(EventoId)
     };
+    const obteneriMG = (EventoIdCat)=>{
+        return categorias.find(cat => cat.id === EventoIdCat).imagen;
+    }
 
 
     
@@ -90,6 +93,7 @@ export const ListEventos = () => {
                             <th>Categoria</th>
                             <th>Detalle</th>
                             <th>Fecha</th>
+                            <th>Imagen</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -100,6 +104,7 @@ export const ListEventos = () => {
                                     <td>{evento.categoriaNombre}</td>
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
+                                    <td><img src={`https://babytracker.develotion.com/imgs/${obteneriMG(evento.idCategoria)}.png`} alt="" /></td>
                                     <td>
                                         <button onClick={() => handleDelete(evento.id)} className="btn btn-danger">Eliminar</button>
                                     </td>
@@ -121,6 +126,7 @@ export const ListEventos = () => {
                             <th>Categoria</th>
                             <th>Detalle</th>
                             <th>Fecha</th>
+                            <th>Imagen</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -131,6 +137,7 @@ export const ListEventos = () => {
                                     <td>{evento.categoriaNombre}</td>
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
+                                    <td><img src={`https://babytracker.develotion.com/imgs/${obteneriMG(evento.idCategoria)}.png`} alt="" /></td>
                                     <td>
                                         <button onClick={() => handleDelete(evento.id)} className="btn btn-danger">Eliminar</button>
                                     </td>

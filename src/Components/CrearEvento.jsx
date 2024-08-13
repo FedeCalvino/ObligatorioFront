@@ -75,17 +75,6 @@ export const CrearEvento = () => {
             }
             const result = await response.json();
             Evento.id=result.idEvento
-            const catIdImagen = categorias.find(cat => cat.id === Evento.idCategoria).imagen;
-            console.log("catIdImagen",catIdImagen)
-            const requestOptions2 = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'apikey': User.apiKey, // Añade tu apikey
-                    'iduser': User.id, // Añade el iduser
-                }
-            };
-            //const srCImg = fetch("https://babytracker.develotion.com/imgs/"+catId+".png")
             dispatch(addEvent(Evento));
             toastTopCenter.current.show({ severity: "success", summary: "evento creado con exito", detail: "", life: 3000 });
             console.log("Evento",result);

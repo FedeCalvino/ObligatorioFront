@@ -9,6 +9,7 @@ export const Informes = () => {
 
   const getTodayDate = () => {
       const today = new Date();
+      today.setHours(today.getHours() - 3); 
       return today.toISOString().split('T')[0];
   };
 
