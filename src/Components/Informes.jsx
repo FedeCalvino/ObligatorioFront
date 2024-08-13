@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import "../css/Informes.css"
 export const Informes = () => {
   const eventos = useSelector(state => state.eventos.eventos);
 
@@ -64,7 +65,7 @@ export const Informes = () => {
                     <tr>
                         <th>Tipo</th>
                         <th>Total del Día</th>
-                        <th>Tiempo Desde el Último Evento</th>
+                        <th>Último Evento</th>
                     </tr>
                 </thead>
                 <tbody>

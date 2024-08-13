@@ -4,7 +4,7 @@
 .event-tables-container {
     display: flex; /* Flexbox para alinear las tablas horizontalmente */
     justify-content: end;
-    gap: 20px; /* Espacio entre las tablas */
+    gap: 20px; 
     padding: 10px;
     width: 80%;
 }
@@ -23,23 +23,24 @@
 
 /* Ajusta el estilo de la tabla */
 .event-table {
-    width: 100%; /* Ocupa todo el ancho del contenedor */
-    border-collapse: collapse; /* Colapsa los bordes de las celdas */
+    width: 100%; 
+    border-collapse: collapse; 
 }
 
 .event-table th, .event-table td {
-    padding: 8px; /* Espaciado interno de las celdas */
-    text-align: left; /* Alineación del texto */
-    border-bottom: 1px solid #ddd; /* Línea de separación entre filas */
+    padding: 5px; 
+    text-align: left; 
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
 }
 
 .event-table th {
-    background-color: #f4f4f4; /* Color de fondo de los encabezados */
-    font-weight: bold; /* Negrita para los encabezados */
+    background-color: #f4f4f4; 
+    font-weight: bold;
 }
 
 .btn-danger {
-    font-size: 12px; /* Tamaño de fuente más pequeño para los botones */
-    padding: 4px 8px; /* Espaciado interno más pequeño */
-    margin-top: 4px; /* Espaciado superior para los botones */
+    font-size: 12px; 
+    padding: 4px 8px; 
+    margin-top: 4px; 
 }

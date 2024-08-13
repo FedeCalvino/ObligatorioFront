@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import '../css/Listeventos.css'; // Asegúrate de que la ruta sea correcta
@@ -17,7 +17,8 @@ export const ListEventos = () => {
     const eventoslist = useSelector(state => state.eventos.eventos);
     const categorias = useSelector((state) => state.categorias.categorias);
     const toastTopCenter = useRef(null);
-    
+    const lastEventRef = useRef(null);
+
     const eventosConCategorias = eventoslist.map(event => {
         console.log(event)
         const categoria = categorias.find(cat => cat.id === event.idCategoria);
@@ -65,19 +66,24 @@ export const ListEventos = () => {
         } catch (error) {
             console.error('FetchCategorias error:', error);
         }
+
     };
 
     const handleDelete = (EventoId) => {
         console.log("eventosDelDia",eventosDelDia)
         dispatch(deleteEvent(EventoId))
         DeleteEvent(EventoId)
+
     };
     const obteneriMG = (EventoIdCat)=>{
         return categorias.find(cat => cat.id === EventoIdCat).imagen;
     }
-
-
     
+    useEffect(() => {
+        if (lastEventRef.current) {
+            lastEventRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [eventosDelDia, eventosAnteriores]);
 
     return (
         <> 
@@ -100,7 +106,7 @@ export const ListEventos = () => {
                     <tbody>
                         {eventosDelDia.length > 0 ? (
                             eventosDelDia.map((evento, index) => (
-                                <tr key={index}>
+                                <tr key={index} ref={ index === eventosDelDia.length - 1 ? lastEventRef : null}>
                                     <td>{evento.categoriaNombre}</td>
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
@@ -133,7 +139,7 @@ export const ListEventos = () => {
                     <tbody>
                         {eventosAnteriores.length > 0 ? (
                             eventosAnteriores.map((evento, index) => (
-                                <tr key={index}>
+                                <tr key={index} ref={index === eventosAnteriores.length - 1 ? lastEventRef : null}>
                                     <td>{evento.categoriaNombre}</td>
                                     <td>{evento.detalle}</td>
                                     <td>{evento.fecha}</td>
