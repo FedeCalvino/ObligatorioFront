@@ -229,7 +229,7 @@ export const RegistrarLoggin = () => {
             >
               Registrar
             </Button>
-            <Button onClick={() => setCrearRegistrar(false)}>Login</Button>
+            <Button style={{ backgroundColor: "rgb(0, 117, 0)",border:"none" }}  onClick={() => setCrearRegistrar(false)}>Login</Button>
           </div>
         </>
       ) : (
@@ -261,9 +261,9 @@ export const RegistrarLoggin = () => {
               style={{ marginBottom: "10px" }}
               onClick={() => LoginUsuario()}
             >
-              Loggin
+              Login
             </Button>
-            <Button onClick={() => setCrearRegistrar(true)}>Registrarme</Button>
+            <Button style={{ backgroundColor: "rgb(0, 117, 0)",border:"none"  }} onClick={() => setCrearRegistrar(true)}>Registrarme</Button>
           </div>
         </>
       )}
